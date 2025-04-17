@@ -2,10 +2,11 @@ use std::io;
 use std::io::Write;
 use std::process;
 
+mod param_input;
 mod trench;
 
 /// Крутизна откосов в зависимости от вида грунта и глубины выемки
-fn get_the_coefficient() -> f64 {
+fn get_the_coefficient() -> (f64, f64) {
     let coefficient: f64;
 
     print!("Введите высоту траншеи: ");
@@ -79,7 +80,7 @@ fn get_the_coefficient() -> f64 {
         process::exit(0x0100);
     }
 
-    coefficient
+    (coefficient, number_two)
 }
 
 fn main() {
@@ -100,10 +101,12 @@ fn main() {
 
     match number_one {
         0 => process::exit(0x0100),
-        1 => trench::trench_vwalls_plannes_terrain(1 as f64, 2 as f64, 6 as f64),
-        2 => trench::trench_vwalls_height_difference(1 as f64, 2 as f64, 3 as f64, 6 as f64),
+        1 => trench::trench_vwalls_plannes_terrain(param_input::parametrs_three()),
+        2 => trench::trench_vwalls_height_difference(param_input::parametrs_four()),
         3 => {
-            println!("hello: {}", get_the_coefficient());
+            let m: (f64, f64) = get_the_coefficient();
+            let param_tuple: ((f64, f64), f64, f64) = (m, 1.0, 6.0);
+            trench::trench_slopes_planned_area(param_tuple);
         }
         _ => {
             eprintln!("[**ERROR**] Введенный вами параметр не верный");
