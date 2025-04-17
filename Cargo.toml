@@ -1,6 +1,11 @@
 [package]
 name = "Calc-of-the-volume-of-construction-work"
+description = "Calculation of the volume of construction work "
+
 version = "0.1.0"
 edition = "2024"
+
+authors = ["MaxKonovalov38 <max.kon.38r@gmail.com>"]
+homepage = "https://maxkonovalov38.github.io"
 
 [dependencies]
